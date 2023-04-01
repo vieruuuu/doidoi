@@ -2,22 +2,24 @@
   <q-layout view="hHh Lpr lff">
     <q-header bordered>
       <q-toolbar>
-        <q-toolbar-title @click="router.push('/reports')">
-          <div class="row items-center q-py-md">
-            <span>
-              <q-icon
-                color="secondary"
-                name="apartment"
-                size="lg"
-                class="q-mr-sm"
-              />
-            </span>
+        <q-toolbar-title
+          class="row items-center q-py-md"
+          @click="router.push('/reports')"
+        >
+          <span v-if="screen.gt.xs">
+            <q-icon
+              color="secondary"
+              name="apartment"
+              size="lg"
+              class="q-mr-sm"
+            />
+          </span>
 
-            <span class="text-h4 text-bold"> Safe </span>
-            <span class="text-h4 text-bold text-secondary"> City </span>
-          </div>
+          <span class="text-h4 text-bold" style="white-space: nowrap">
+            Safe<span class="text-secondary">City</span>
+          </span>
         </q-toolbar-title>
-        <q-space />
+
         <q-btn label="Log out" outline no-caps size="lg" @click="logOut" />
       </q-toolbar>
     </q-header>
@@ -46,6 +48,7 @@ import { firebaseAuth } from "@/lib/firebase";
 
 const router = useRouter();
 const { setUser } = useAuthStore();
+const { screen } = useQuasar();
 
 async function logOut() {
   await signOut(firebaseAuth);
