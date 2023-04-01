@@ -1,47 +1,39 @@
 <template>
-  <div class="row flex-center q-col-gutter-md q-mt-xl">
-    <div class="col-xs-12 col-sm-8 col-lg-4">
-      <q-form @submit="login">
-        <q-card bordered flat>
-          <q-card-section>
-            <div class="col-12 text-h6 text-center">Login</div>
-          </q-card-section>
+  <q-form @submit="login">
+    <q-card bordered flat>
+      <q-card-section>
+        <div class="col-12 text-h6 text-center">Login</div>
+      </q-card-section>
 
-          <q-card-section>
-            <div class="row q-col-gutter-md">
-              <div class="col-12">
-                <email-input v-model="email" />
-              </div>
+      <q-card-section>
+        <div class="row q-col-gutter-md">
+          <div class="col-12">
+            <email-input v-model="email" />
+          </div>
 
-              <div class="col-12">
-                <password-input v-model="password" />
-              </div>
-            </div>
-          </q-card-section>
+          <div class="col-12">
+            <password-input v-model="password" />
+          </div>
+          <router-link
+            class="col-12 text-secondary text-bold text-body2"
+            to="/register"
+            >Don't have and account?</router-link
+          >
+        </div>
+      </q-card-section>
 
-          <q-card-actions align="center">
-            <q-btn
-              no-caps
-              size="lg"
-              label="Login"
-              color="primary"
-              outline
-              type="submit"
-            />
-
-            <q-btn
-              no-caps
-              size="lg"
-              label="Register"
-              color="secondary"
-              outline
-              to="/register"
-            />
-          </q-card-actions>
-        </q-card>
-      </q-form>
-    </div>
-  </div>
+      <q-card-actions align="center">
+        <q-btn
+          no-caps
+          size="lg"
+          label="Login"
+          color="primary"
+          outline
+          type="submit"
+        />
+      </q-card-actions>
+    </q-card>
+  </q-form>
 </template>
 
 <script setup lang="ts">
