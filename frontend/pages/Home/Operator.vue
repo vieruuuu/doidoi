@@ -180,8 +180,6 @@
 </template>
 
 <script setup lang="ts">
-import { testImageLabel } from "@/lib/functions";
-
 const rapport = reactive({
   user: "Gheorghe Asachi",
   title: "Om periculos",

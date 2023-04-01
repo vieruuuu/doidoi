@@ -22,3 +22,16 @@ export async function createDocument<
 
   return ref.id;
 }
+
+export async function setDocument<
+  T extends keyof FirestoreCollection,
+  G extends FirestoreCollection[T]
+>(collection: T, id: string, data: G): Promise<void> {
+  await firestore
+    .collection(collection)
+    .doc(id)
+    .set({
+      ...data,
+      id,
+    });
+}

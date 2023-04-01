@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { Email } from "./utils";
+import { Email, Phone } from "./utils";
 
 export const UserTypes = ["citizen", "operator"] as const;
 
@@ -12,6 +12,7 @@ export const User = z.object({
 
   firstName: z.string().min(1),
   lastName: z.string().min(1),
+  phone: Phone,
 
   type: z.enum(UserTypes),
 });

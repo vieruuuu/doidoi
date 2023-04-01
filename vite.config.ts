@@ -22,6 +22,7 @@ export default defineConfig(async () => {
         "firebase/storage",
         "zod",
         "validator/es/lib/isEmail",
+        "validator/es/lib/isMobilePhone",
       ],
     },
     server: {

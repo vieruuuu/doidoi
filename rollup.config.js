@@ -18,6 +18,7 @@ export default defineConfig({
     "@google-cloud/vision",
     "jsonwebtoken",
     "validator/es/lib/isEmail.js",
+    "validator/es/lib/isMobilePhone.js",
   ],
   output: {
     dir: "functions/dist",

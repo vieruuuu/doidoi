@@ -1,8 +1,11 @@
 <template>
-  <admin></admin>
+  <citizen v-if="user.type === 'citizen'" />
+  <operator v-else />
 </template>
 
 <script setup lang="ts">
-import User from "./User.vue";
-import Admin from "./Admin.vue";
+import Citizen from "./Citizen.vue";
+import Operator from "./Operator.vue";
+
+const { user } = useAuthStore();
 </script>

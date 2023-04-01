@@ -10,6 +10,7 @@ import { initializeFirestore } from "firebase/firestore/lite";
 import { connectFunctionsEmulator, getFunctions } from "firebase/functions";
 import { getStorage } from "firebase/storage";
 import { fetchDocument } from "./firestore";
+import { Router } from "@/router";
 
 export const firebaseApp = initializeApp({
   apiKey: import.meta.env.VITE_FIREBASE_apiKey,
@@ -42,6 +43,8 @@ if (import.meta.env.DEV) {
 
 export function loginHook() {
   const { setUser } = useAuthStore();
+
+  Router.push("/");
 
   onAuthStateChanged(firebaseAuth, async (user) => {
     if (user && user.email) {

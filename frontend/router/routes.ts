@@ -6,24 +6,12 @@ import AuthLayout from "@/layouts/Auth.vue";
 const routes = [
   {
     path: "/",
-    component: DefaultLayout,
-    children: [
-      {
-        path: "",
-        component: () => import("@/pages/Home/Home.vue"),
-        alias: "/",
-      },
-    ],
-  },
-
-  {
-    path: "/auth",
     component: AuthLayout,
     children: [
       {
         path: "login",
         component: () => import("@/pages/Login.vue"),
-        alias: "/login",
+        alias: "/",
       },
       {
         path: "register",
@@ -31,6 +19,12 @@ const routes = [
         alias: "/register",
       },
     ],
+  },
+
+  {
+    path: "/reports",
+    component: DefaultLayout,
+    children: [{ path: "", component: () => import("@/pages/Home/Home.vue") }],
   },
 
   {
