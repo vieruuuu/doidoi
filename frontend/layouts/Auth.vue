@@ -18,7 +18,7 @@
 
         <div class="col-12" />
 
-        <div class="text-white text-h4">Let's build a safer city!</div>
+        <div class="text-white text-h4">Together we're safer!</div>
       </div>
     </div>
 

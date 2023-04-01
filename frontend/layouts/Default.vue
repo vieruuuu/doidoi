@@ -17,6 +17,7 @@
             <span class="text-h4 text-bold text-secondary"> City </span>
           </div>
         </q-toolbar-title>
+        <q-space />
       </q-toolbar>
     </q-header>
 

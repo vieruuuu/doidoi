@@ -27,7 +27,7 @@
 
                   <q-item-section>
                     <div class="row justify-between items-center">
-                      <div>
+                      <div class="col-6">
                         <q-item-label class="text-body1 text-bold">{{
                           rapport.title
                         }}</q-item-label>
@@ -72,7 +72,7 @@
                       <q-btn
                         outline
                         class="fit"
-                        color="green"
+                        color="green-7"
                         href="https://www.protectiamediului.org/gnm/scrie-garzii-de-mediu-iasi/"
                         target="_blank"
                         icon="nest_eco_leaf"
@@ -113,7 +113,7 @@
                     <div class="col-6">
                       <q-btn
                         outline
-                        color="orange"
+                        color="green-14"
                         label="Mark as solved"
                         class="fit"
                         icon="check"
