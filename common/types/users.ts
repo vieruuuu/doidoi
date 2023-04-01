@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-import { Email } from "./utils";
+import isEmail from "validator/es/lib/isEmail";
 
 export const User = z.object({
   id: z.string(),
-  email: Email,
+  email: z.string().refine((val) => isEmail(val)),
 });
 
 export type User = z.infer<typeof User>;

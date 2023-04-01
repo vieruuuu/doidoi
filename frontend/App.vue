@@ -1,5 +1,5 @@
 <template>
-  <!-- <router-view v-slot="{ Component }">
+  <router-view v-slot="{ Component }">
     <transition
       appear
       mode="out-in"
@@ -9,18 +9,5 @@
     >
       <component :is="Component" />
     </transition>
-  </router-view> -->
-
-  <div>
-    <q-btn
-      label="test image detection"
-      size="lg"
-      @click="() => testImageLabel()"
-    >
-    </q-btn>
-  </div>
+  </router-view>
 </template>
-
-<script setup lang="ts">
-import { testImageLabel } from "./lib/functions";
-</script>
