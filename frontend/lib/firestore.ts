@@ -1,7 +1,15 @@
 import type { FirestoreCollection } from "types/collections";
 import { firestore } from "./firebase";
 
-import { doc, getDoc } from "firebase/firestore/lite";
+import {
+  doc,
+  getDoc,
+  collection as firestoreCollection,
+  query,
+  getDocs,
+  QueryConstraint,
+  orderBy,
+} from "firebase/firestore/lite";
 
 export async function fetchDocument<
   T extends keyof FirestoreCollection,
@@ -20,4 +28,32 @@ export async function fetchDocument<
     ...data,
     id: snap.id,
   };
+}
+
+export async function queryDocuments<
+  T extends keyof FirestoreCollection,
+  G extends FirestoreCollection[T]
+>(collection: T, queries: QueryConstraint[]): Promise<G[]> {
+  const collectionRef = firestoreCollection(firestore, collection);
+
+  const q = query(collectionRef, ...queries);
+
+  const snaps = await getDocs(q);
+
+  const docs: G[] = [];
+
+  snaps.forEach((docSnap) => {
+    if (docSnap.exists()) {
+      docs.push({
+        ...(docSnap.data() as G),
+        id: docSnap.id,
+      });
+    }
+  });
+
+  return docs;
+}
+
+export async function fetchRecentReports() {
+  return queryDocuments("reports", [orderBy("date", "desc")]);
 }

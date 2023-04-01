@@ -6,7 +6,7 @@
     fill-mask
     hint="dd/MM/yyyy"
     :debounce="200"
-    :rules="[(val) => Min1String.safeParse(val).success]"
+    :rules="[(val) => z.string().min(1).safeParse(val).success]"
     :disable="disable"
   >
     <template #append>
@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { Min1String } from "types/utils";
+import { z } from "zod";
 
 const props = defineProps<{
   modelValue: string;

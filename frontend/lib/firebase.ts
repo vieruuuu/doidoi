@@ -43,12 +43,16 @@ if (import.meta.env.DEV) {
 
 export function loginHook() {
   const { setUser } = useAuthStore();
+  const { fetchReports } = useReportsStore();
 
   Router.push("/");
 
   onAuthStateChanged(firebaseAuth, async (user) => {
     if (user && user.email) {
-      const userData = await fetchDocument("users", user.uid);
+      const [userData] = await Promise.all([
+        fetchDocument("users", user.uid),
+        fetchReports(),
+      ]);
 
       setUser(userData);
     } else {

@@ -68,6 +68,7 @@
     "useLink": true,
     "useMeta": true,
     "useQuasar": true,
+    "useReportsStore": true,
     "useRoute": true,
     "useRouter": true,
     "useSlots": true,

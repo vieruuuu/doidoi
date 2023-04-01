@@ -18,6 +18,7 @@ export default defineConfig(async () => {
         "fuse.js",
         "firebase/functions",
         "@firebase/app",
+        "@firebase/auth",
         "vue-chartjs",
         "firebase/storage",
         "zod",
