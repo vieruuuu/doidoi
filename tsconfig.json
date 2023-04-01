@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "allowJs": true,
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "esnext",
+    "verbatimModuleSyntax": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "lib": ["esnext", "dom"],
+    "skipLibCheck": true,
+    "paths": {
+      "@@/*": ["./frontend/components/*"],
+      "@/*": ["./frontend/*"],
+      "types/*": ["./common/types/*"],
+      "common/*": ["./common/*"]
+    },
+    "plugins": []
+  },
+  "include": [
+    "common/**/*.ts",
+    "frontend/**/*.js",
+    "frontend/**/*.ts",
+    "frontend/**/*.d.ts",
+    "frontend/**/*.tsx",
+    "frontend/**/*.vue"
+  ],
+  "exclude": ["node_modules"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}

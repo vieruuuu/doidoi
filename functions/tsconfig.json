@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "useDefineForClassFields": true,
+    "strict": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "target": "es2017",
+    "moduleResolution": "node",
+    "paths": {
+      "baseUrl": ["."],
+      "types/*": ["./../common/types/*"],
+      "common/*": ["./../common/*"]
+    }
+  },
+  "compileOnSave": true,
+  "include": ["src", "./../common", "./env.d.ts"]
+}

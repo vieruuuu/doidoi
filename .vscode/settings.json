@@ -1,0 +1,80 @@
+{
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
+  "cSpell.words": [
+    "autologin",
+    "Decompartment",
+    "firestore",
+    "IBAN",
+    "katex",
+    "klona",
+    "rentguard",
+    "sendgrid",
+    "Shouldnt",
+    "swipeable",
+    "typesaurus",
+    "Undecomandated",
+    "VITE",
+    "vuex",
+    "wapp"
+  ],
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.renderWhitespace": "all",
+  "volar.codeLens.pugTools": false,
+  "eslint.format.enable": true,
+  "eslint.alwaysShowStatus": true,
+  "eslint.codeActionsOnSave.mode": "all",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "docwriter.style": "JSDoc",
+  "docwriter.progress.trackClasses": true,
+  "docwriter.progress.trackTypes": true,
+  "sort-imports.default-sort-style": "module-scoped",
+  "sort-imports.languages": [
+    "javascript",
+    "typescript",
+    "vue",
+    "typescriptreact"
+  ],
+  "sort-imports.on-save": false,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/node_modules": true
+  },
+  "files.associations": {
+    "*.moustache": "html",
+    "*.env.*": "properties"
+  },
+  "todo-tree.tree.scanMode": "workspace",
+  "volar.completion.preferredTagNameCase": "kebab",
+  "volar.completion.preferredAttrNameCase": "kebab",
+  "volar.completion.autoImportComponent": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

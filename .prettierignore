@@ -1,0 +1,5 @@
+frontend/auto-imports.d.ts
+.eslintrc-auto-imports.json
+dist/
+.yarn/
+

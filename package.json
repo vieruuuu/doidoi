@@ -1,0 +1,87 @@
+{
+  "name": "doidoi",
+  "version": "0.0.1",
+  "author": "mixerandr3w001@gmail.com",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"yarn functions:build --watch\" \"firebase emulators:start --only functions\" \"yarn frontend:dev\"",
+    "login": "firebase login",
+    "format": "prettier -w --no-error-on-unmatched-pattern .",
+    "verify:eslint": "eslint \"./**/*.{mjs,ts,js,vue,json}\"",
+    "verify:typescript": "vue-tsc --noEmit",
+    "verify:functions": "tsc -p functions/tsconfig.json --noEmit",
+    "verify": "yarn verify:eslint && yarn verify:typescript && yarn verify:functions",
+    "frontend:build": "cross-env vite build",
+    "frontend:dev": "vite",
+    "functions:build": "rollup --bundleConfigAsCjs -c rollup.config.js",
+    "deploy": "cross-env MODE=production firebase deploy --force",
+    "postinstall": "npm --prefix functions/ install"
+  },
+  "dependencies": {
+    "@googlemaps/js-api-loader": "^1.15.1",
+    "@quasar/extras": "^1.16.1",
+    "chart.js": "^4.2.1",
+    "date-fns": "^2.29.3",
+    "firebase": "^9.18.0",
+    "fuse.js": "^6.6.2",
+    "klona": "^2.0.6",
+    "pinia": "^2.0.33",
+    "quasar": "^2.11.9",
+    "validator": "^13.9.0",
+    "vue": "^3.2.47",
+    "vue-chartjs": "^5.2.0",
+    "vue-gtag": "^2.0.1",
+    "vue-router": "^4.1.6",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@quasar/vite-plugin": "^1.3.0",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/node": "^18.15.11",
+    "@types/validator": "^13.7.14",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "@vue/eslint-config-typescript": "^11.0.2",
+    "chalk": "^5.2.0",
+    "concurrently": "^8.0.1",
+    "cross-env": "^7.0.3",
+    "cssnano": "^6.0.0",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-vue": "^9.10.0",
+    "firebase-tools": "^11.25.2",
+    "happy-dom": "^8.9.0",
+    "import-sort-parser-babel-vue": "^1.0.6",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.7",
+    "rollup": "^3.20.2",
+    "sass": "1.32.12",
+    "typescript": "^5.0.3",
+    "unplugin-auto-import": "^0.15.2",
+    "vite": "^4.2.1",
+    "vite-plugin-html": "^3.2.0",
+    "vite-plugin-restart": "^0.3.1",
+    "vite-plugin-vue-markdown": "^0.22.4",
+    "vite-tsconfig-paths": "^4.0.7",
+    "vue-tsc": "^1.2.0"
+  },
+  "resolutions": {
+    "esbuild": "^0.17.14"
+  },
+  "importSort": {
+    ".js, .jsx, .ts, .tsx, .vue": {
+      "parser": "babel-vue",
+      "style": "module-scoped"
+    }
+  },
+  "engines": {
+    "node": "18",
+    "npm": ">= 8",
+    "yarn": "1.22.19"
+  },
+  "packageManager": "yarn@1.22.19"
+}

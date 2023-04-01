@@ -1,0 +1,24 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "eamodio.gitlens",
+    "dariofuzinato.vue-peek",
+    "gruntfuggly.todo-tree",
+    "syler.sass-indented",
+    "christian-kohler.path-intellisense",
+    "amatiasq.sort-imports",
+    "chrisbibby.hide-node-modules",
+    "streetsidesoftware.code-spell-checker",
+    "toba.vsfire",
+    "mintlify.document",
+    "vue.volar",
+    "pushqrdx.inline-html"
+  ],
+  "unwantedRecommendations": [
+    "hookyqr.beautify",
+    "dbaeumer.jshint",
+    "ms-vscode.vscode-typescript-tslint-plugin",
+    "octref.vetur",
+  ]
+}
