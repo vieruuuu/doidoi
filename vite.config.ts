@@ -20,6 +20,8 @@ export default defineConfig(async () => {
         "@firebase/app",
         "vue-chartjs",
         "firebase/storage",
+        "zod",
+        "validator/es/lib/isEmail",
       ],
     },
     server: {
