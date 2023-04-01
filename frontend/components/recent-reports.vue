@@ -31,7 +31,7 @@
           </div>
 
           <div class="q-mb-md full-width row q-col-gutter-md justify-end">
-            <div class="col-2">
+            <div class="col-sm-2 col-lg-3 col-xs-6">
               <q-btn
                 icon="arrow_circle_up"
                 rounded
@@ -42,7 +42,7 @@
                 unelevated
               />
             </div>
-            <div class="col-2">
+            <div class="col-sm-2 col-lg-3 col-xs-6">
               <q-btn
                 icon="arrow_circle_down"
                 unelevated

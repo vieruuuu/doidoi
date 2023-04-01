@@ -1,6 +1,6 @@
 <template>
   <div class="row q-col-gutter-md justify-center q-mt-xl q-px-md">
-    <div class="col-xs-12 col-lg-6 col-xl-10">
+    <div class="col-xs-12 col-lg-10 col-xl-10">
       <div class="text-h4 q-mb-md text-bold">Hello, Andrei</div>
       <div class="text-h5 q-mb-md">Let's build a safer city!</div>
     </div>

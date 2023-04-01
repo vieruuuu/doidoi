@@ -1,6 +1,6 @@
 <template>
   <div class="row q-col-gutter-md justify-center q-mt-xl q-px-md">
-    <div class="col-xs-12 col-lg-6 col-xl-10">
+    <div class="col-xs-12 col-lg-10 col-xl-10">
       <div class="text-h4 q-mb-md text-bold">Hello, {{ user.firstName }}</div>
       <div class="text-h5 q-mb-md">Let's build a safer city!</div>
     </div>
@@ -109,26 +109,7 @@
       <div class="q-mt-lg">
         <div class="text-h4 q-mb-xl">My reports:</div>
 
-        <div class="q-col-gutter-md row">
-          <div
-            v-for="i in 5"
-            :key="i"
-            class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
-          >
-            <q-card>
-              <img src="https://cdn.quasar.dev/img/mountains.jpg" />
-
-              <q-card-section>
-                <div class="text-h6">{{ "rapport.title" }}</div>
-                <div class="text-subtitle2">By:{{ "rapport.user" }}</div>
-              </q-card-section>
-
-              <q-card-section class="q-pt-none">
-                {{ "rapport.description" }}
-              </q-card-section>
-            </q-card>
-          </div>
-        </div>
+        <user-reports></user-reports>
       </div>
     </div>
   </div>
@@ -141,6 +122,7 @@ import ImageUploader from "@@/image-uploader.vue";
 import { Categories, Report } from "types/reports";
 import { parse, format } from "date-fns";
 import RecentReports from "@@/recent-reports.vue";
+import userReports from "@@/user-reports.vue";
 
 const { user } = useAuthStore();
 
