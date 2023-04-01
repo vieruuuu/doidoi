@@ -6,7 +6,10 @@ import { defineRefStore } from "./lib/defineRefStore";
 
 const initialUserState: User = {
   id: "",
-
+  firstName: "",
+  lastName: "",
+  phone: "",
+  type: "citizen",
   email: "",
 };
 
