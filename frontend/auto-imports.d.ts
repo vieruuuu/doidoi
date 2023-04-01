@@ -65,6 +65,7 @@ declare global {
   const useLink: typeof import('vue-router')['useLink']
   const useMeta: typeof import('quasar')['useMeta']
   const useQuasar: typeof import('quasar')['useQuasar']
+  const useReportsStore: typeof import('./store/reports')['useReportsStore']
   const useRoute: typeof import('vue-router')['useRoute']
   const useRouter: typeof import('vue-router')['useRouter']
   const useSlots: typeof import('vue')['useSlots']
@@ -143,6 +144,7 @@ declare module 'vue' {
     readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
     readonly useMeta: UnwrapRef<typeof import('quasar')['useMeta']>
     readonly useQuasar: UnwrapRef<typeof import('quasar')['useQuasar']>
+    readonly useReportsStore: UnwrapRef<typeof import('./store/reports')['useReportsStore']>
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
     readonly useSlots: UnwrapRef<typeof import('vue')['useSlots']>

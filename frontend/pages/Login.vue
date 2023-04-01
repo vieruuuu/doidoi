@@ -38,12 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  browserLocalPersistence,
-  setPersistence,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import type { User } from "types/users";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 import { firebaseAuth } from "@/lib/firebase";
 import EmailInput from "@@/email-input.vue";
@@ -58,8 +53,6 @@ async function login() {
   loading.value = true;
 
   try {
-    await setPersistence(firebaseAuth, browserLocalPersistence);
-
     const { user } = await signInWithEmailAndPassword(
       firebaseAuth,
       email.value,

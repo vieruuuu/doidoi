@@ -17,12 +17,6 @@ export const useAuthStore = defineRefStore("auth", () => {
   const user = ref<User>(klona(initialUserState));
 
   const userSaved = ref(!!LocalStorage.getItem<boolean>("userSaved"));
-
-  // userLogged stocheaza daca userul e logat acum
-  // diferenta dintre authenticated si userLogged ii
-  // ii ca authenticated ii folosit doar pentru a arata loading screen-ul
-  // pana cand firebase detecteaza contul
-  // modificat de init/firebase.ts
   const userLogged = ref(false);
 
   function setAuth(value: boolean) {

@@ -1,7 +1,7 @@
 <template>
   <div class="row q-col-gutter-md justify-center q-mt-xl q-px-md">
     <div class="col-xs-12 col-lg-6 col-xl-10">
-      <div class="text-h4 q-mb-md text-bold">Hello, Andrei</div>
+      <div class="text-h4 q-mb-md text-bold">Hello, {{ user.firstName }}</div>
       <div class="text-h5 q-mb-md">Let's build a safer city!</div>
     </div>
 
@@ -102,58 +102,7 @@
     </div>
 
     <div class="col-xs-12 col-lg-4">
-      <q-list separator bordered class="full-width">
-        <q-item-label header>
-          <div class="text-h4 text-black">Recent reports:</div></q-item-label
-        >
-
-        <q-item v-for="i in 10" :key="i">
-          <div class="full-width">
-            <div class="text-h5 text-weight-medium">{{ "rapport.title" }}</div>
-            <div class="text-body1">{{ "rapport.description" }}</div>
-
-            <div class="q-mt-sm full-width row q-col-gutter-md justify-end">
-              <div class="col-2">
-                <q-btn
-                  icon="sentiment_very_satisfied"
-                  rounded
-                  padding="sm"
-                  class="fit"
-                  color="green"
-                  label="100"
-                  unelevated
-                />
-              </div>
-              <div class="col-2">
-                <q-btn
-                  icon="sentiment_neutral"
-                  unelevated
-                  rounded
-                  padding="sm"
-                  class="fit"
-                  color="orange"
-                  label="10"
-                />
-              </div>
-              <div class="col-2">
-                <q-btn
-                  icon="sentiment_very_dissatisfied"
-                  unelevated
-                  rounded
-                  padding="sm"
-                  class="fit"
-                  color="negative"
-                  label="400"
-                />
-              </div>
-            </div>
-            <!-- <img
-                style="max-width: 100px"
-                src="https://cdn.quasar.dev/img/mountains.jpg"
-              /> -->
-          </div>
-        </q-item>
-      </q-list>
+      <recent-reports />
     </div>
 
     <div class="col-9">
@@ -191,6 +140,7 @@ import { createReport } from "@/lib/functions";
 import ImageUploader from "@@/image-uploader.vue";
 import { Categories, Report } from "types/reports";
 import { parse, format } from "date-fns";
+import RecentReports from "@@/recent-reports.vue";
 
 const { user } = useAuthStore();
 
