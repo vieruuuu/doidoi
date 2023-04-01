@@ -141,7 +141,7 @@
         <q-item v-for="i in 10" :key="i" v-ripple clickable>
           <q-item-section>
             <div class="text-h6">Title</div>
-            <div class="text-body1">Descrption</div>
+            <div class="text-body1">Description</div>
           </q-item-section>
           <q-item-section thumbnail>
             <img src="https://cdn.quasar.dev/img/mountains.jpg" />
@@ -150,9 +150,9 @@
       </q-list>
     </div>
 
-    <div class="col-9">
+    <div class="col-xs-12 col-lg-10 col-xl-10">
       <div class="q-mt-lg">
-        <div class="text-h4 q-mb-xl">My reports:</div>
+        <div class="text-h4 q-mb-xl">Solved reports:</div>
 
         <div class="q-col-gutter-md row">
           <div
