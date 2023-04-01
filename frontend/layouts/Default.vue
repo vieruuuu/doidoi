@@ -2,8 +2,20 @@
   <q-layout view="hHh Lpr lff">
     <q-header bordered>
       <q-toolbar>
-        <q-toolbar-title class="row" @click="router.push('/')">
-          doidoi
+        <q-toolbar-title @click="router.push('/')">
+          <div class="row items-center q-py-md">
+            <span>
+              <q-icon
+                color="secondary"
+                name="apartment"
+                size="lg"
+                class="q-mr-sm"
+              />
+            </span>
+
+            <span class="text-h4 text-bold"> Safe </span>
+            <span class="text-h4 text-bold text-secondary"> City </span>
+          </div>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>

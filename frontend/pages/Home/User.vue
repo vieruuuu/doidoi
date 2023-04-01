@@ -1,12 +1,12 @@
 <template>
   <div class="row q-col-gutter-md justify-center q-mt-xl q-px-md">
-    <div class="col-xs-12 col-lg-6 col-xl-9">
+    <div class="col-xs-12 col-lg-6 col-xl-10">
       <div class="text-h4 q-mb-md text-bold">Hello, Andrei</div>
-      <div class="text-h5 q-mb-md">Let's build a safer world!</div>
+      <div class="text-h5 q-mb-md">Let's build a safer city!</div>
     </div>
 
     <div class="col-xs-12 col-lg-6 col-xl-6">
-      <q-card class="q-pa-sm">
+      <q-card bordered flat class="q-pa-sm">
         <q-form @submit="() => testImageLabel()">
           <q-card-section>
             <div class="text-h4 q-mb-md text-center">Submit a rapport</div>
@@ -85,7 +85,7 @@
       </q-card>
     </div>
 
-    <div class="col-xs-12 col-lg-3">
+    <div class="col-xs-12 col-lg-4">
       <q-list separator bordered class="full-width">
         <q-item-label header>
           <div class="text-h4 text-black">Recent reports:</div></q-item-label
@@ -144,6 +144,7 @@ const rapport = reactive({
   severity: "7",
   category: "Trash",
 });
+
 const title = ref("");
 const text = ref("");
 const date = ref("");
