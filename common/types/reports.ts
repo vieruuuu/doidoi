@@ -41,3 +41,19 @@ export const Report = z.object({
 });
 
 export type Report = z.infer<typeof Report>;
+
+export const ReportUpdateActions = [
+  "upvote",
+  "downvote",
+  "mark-solved",
+  "delete",
+] as const;
+
+export type ReportUpdateAction = (typeof ReportUpdateActions)[number];
+
+export const UpdateReportData = z.object({
+  reportId: z.string(),
+  action: z.enum(ReportUpdateActions),
+});
+
+export type UpdateReportData = z.infer<typeof UpdateReportData>;
