@@ -16,6 +16,8 @@ export default defineConfig({
     "zod",
     "node-fetch",
     "@google-cloud/vision",
+    "jsonwebtoken",
+    "validator/es/lib/isEmail.js",
   ],
   output: {
     dir: "functions/dist",

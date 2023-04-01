@@ -1,11 +1,13 @@
 <template>
   <q-uploader
+    ref="uploaderRef"
     multiple
     batch
     color="transparent"
     flat
     class="fit"
     :max-files="20"
+    bordered
     @added="addImage"
     @removed="removeImage"
   >
@@ -56,14 +58,16 @@
         <div class="col-12 text-h6 text-center">{{ label }}</div>
         <div class="col-12 text-body1 text-center">{{ caption }}</div>
       </div>
-      <div v-else class="row q-col-gutter-md">
-        <div v-for="file in scope.files" :key="file.__key" class="col-3">
+      <div v-else class="row flex-center q-col-gutter-md">
+        <div v-for="file in scope.files" :key="file.__key" class="col-12">
           <q-img
             v-if="file.__img"
             :src="file.__img.src"
             no-native-menu
             no-spinner
             no-transition
+            style="max-height: 500px"
+            fit="scale-down"
           >
             <div
               class="absolute"
@@ -98,6 +102,8 @@ const props = defineProps<{
   notRequired?: boolean;
 }>();
 
+const uploaderRef = ref<{ reset: () => void }>();
+
 const emit = defineEmits(["update:modelValue"]);
 
 const images = computed({
@@ -116,6 +122,18 @@ function removeImage(files: QUploader["files"]) {
     (file) => !deletedKeys.includes(file.__key)
   );
 }
+
+function reset() {
+  images.value = [];
+
+  if (uploaderRef.value) {
+    uploaderRef.value.reset();
+  }
+}
+
+defineExpose({
+  reset,
+});
 
 const animationInUse = ref(false);
 

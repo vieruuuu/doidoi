@@ -7,41 +7,51 @@
 
     <div class="col-xs-12 col-lg-6 col-xl-6">
       <q-card bordered flat class="q-pa-sm">
-        <q-form @submit="() => testImageLabel()">
+        <q-form ref="formRef" @submit="submit">
           <q-card-section>
-            <div class="text-h4 q-mb-md text-center">Submit a rapport</div>
+            <div class="text-h4 q-mb-md text-center">Submit a report</div>
 
             <div class="row q-col-gutter-lg">
               <div class="col-12">
-                <q-input v-model="title" outlined label="Title" />
+                <q-input
+                  v-model="report.title"
+                  outlined
+                  label="Title"
+                  :rules="[(val) => Report.shape.title.safeParse(val).success]"
+                />
               </div>
               <div class="col-12">
                 <q-input
-                  v-model="text"
+                  v-model="report.description"
                   label="A short description of the incident"
                   outlined
                   type="textarea"
+                  :rules="[
+                    (val) => Report.shape.description.safeParse(val).success,
+                  ]"
                   autogrow
                 />
               </div>
-              <div class="col-xs-12 col-lg-6">
+              <div class="col-xs-12">
                 <q-select
-                  v-model="model"
+                  v-model="report.category"
                   transition-show="jump-up"
+                  :rules="[
+                    (val) => Report.shape.category.safeParse(val).success,
+                  ]"
                   transition-hide="jump-up"
                   outlined
-                  :options="options"
+                  :options="Categories"
                   label="Category"
-                  clearable
                 />
               </div>
-              <div class="col-xs-12 col-lg-6">
-                <q-uploader
+              <div class="col-xs-12">
+                <image-uploader
+                  ref="imageUploaderRef"
+                  v-model="files"
                   label="Picture of the incident"
-                  flat
-                  bordered
+                  caption="Drag and drop"
                   class="fit"
-                  url="http://localhost:4444/upload"
                 />
               </div>
               <div class="col-12 full-height">
@@ -60,7 +70,7 @@
                 </div>
                 <div class="q-px-xl">
                   <q-slider
-                    v-model="sev"
+                    v-model="report.severity"
                     switch-label-side
                     color="secondary"
                     marker-labels
@@ -75,11 +85,17 @@
 
           <q-card-actions class="q-mt-xl q-px-lg" align="between">
             <q-checkbox
-              v-model="isAnon"
+              v-model="report.anonymous"
               label="Send anonymously "
               color="primary"
             />
-            <q-btn label="submit" size="lg" type="submit" color="secondary" />
+            <q-btn
+              label="submit"
+              :loading="loading"
+              size="lg"
+              type="submit"
+              color="secondary"
+            />
           </q-card-actions>
         </q-form>
       </q-card>
@@ -91,14 +107,51 @@
           <div class="text-h4 text-black">Recent reports:</div></q-item-label
         >
 
-        <q-item v-for="i in 10" :key="i" v-ripple clickable>
-          <q-item-section>
-            <div class="text-h6">Title</div>
-            <div class="text-body1">Descrption</div>
-          </q-item-section>
-          <q-item-section thumbnail>
-            <img src="https://cdn.quasar.dev/img/mountains.jpg" />
-          </q-item-section>
+        <q-item v-for="i in 10" :key="i">
+          <div class="full-width">
+            <div class="text-h5 text-weight-medium">{{ "rapport.title" }}</div>
+            <div class="text-body1">{{ "rapport.description" }}</div>
+
+            <div class="q-mt-sm full-width row q-col-gutter-md justify-end">
+              <div class="col-2">
+                <q-btn
+                  icon="sentiment_very_satisfied"
+                  rounded
+                  padding="sm"
+                  class="fit"
+                  color="green"
+                  label="100"
+                  unelevated
+                />
+              </div>
+              <div class="col-2">
+                <q-btn
+                  icon="sentiment_neutral"
+                  unelevated
+                  rounded
+                  padding="sm"
+                  class="fit"
+                  color="orange"
+                  label="10"
+                />
+              </div>
+              <div class="col-2">
+                <q-btn
+                  icon="sentiment_very_dissatisfied"
+                  unelevated
+                  rounded
+                  padding="sm"
+                  class="fit"
+                  color="negative"
+                  label="400"
+                />
+              </div>
+            </div>
+            <!-- <img
+                style="max-width: 100px"
+                src="https://cdn.quasar.dev/img/mountains.jpg"
+              /> -->
+          </div>
         </q-item>
       </q-list>
     </div>
@@ -117,12 +170,12 @@
               <img src="https://cdn.quasar.dev/img/mountains.jpg" />
 
               <q-card-section>
-                <div class="text-h6">{{ rapport.title }}</div>
-                <div class="text-subtitle2">By:{{ rapport.user }}</div>
+                <div class="text-h6">{{ "rapport.title" }}</div>
+                <div class="text-subtitle2">By:{{ "rapport.user" }}</div>
               </q-card-section>
 
               <q-card-section class="q-pt-none">
-                {{ rapport.description }}
+                {{ "rapport.description" }}
               </q-card-section>
             </q-card>
           </div>
@@ -133,23 +186,80 @@
 </template>
 
 <script setup lang="ts">
-import { testImageLabel } from "@/lib/functions";
+import { uploadFile } from "@/lib/documents";
+import { createReport } from "@/lib/functions";
+import ImageUploader from "@@/image-uploader.vue";
+import { Categories, Report } from "types/reports";
+import { parse, format } from "date-fns";
 
-const rapport = reactive({
-  user: "Gheorghe Asachi",
-  title: "Om periculos",
-  description:
-    "Un om sta cu katana n nikolinaUn om sta cu katana n nikolinaUn om sta cu katana n nikolina ",
-  date: "2022/12/01",
-  severity: "7",
-  category: "Trash",
+const { user } = useAuthStore();
+
+const initialReportData = (): Report => ({
+  id: "",
+  anonymous: false,
+  category: "litter",
+  date: Date.now(),
+  description: "",
+  image: "",
+  reacts: {
+    happy: 0,
+    neutral: 0,
+    sad: 0,
+  },
+  severity: 0,
+  solved: false,
+  spam: false,
+  title: "",
 });
 
-const title = ref("");
-const text = ref("");
-const date = ref("");
-const sev = ref<number>(0);
-const model = ref(null);
-const isAnon = ref(false);
-const options = ["Trash", "Parking", "Lost stuff", "Lost pets", "thefts"];
+const formRef = ref<{ reset: () => void }>();
+const imageUploaderRef = ref<{ reset: () => void }>();
+
+const files = ref<File[]>([]);
+
+const report = ref(initialReportData());
+
+const loading = ref(false);
+
+const currentDate = () => format(new Date(), "yyyy/MM/dd");
+
+const date = ref(currentDate());
+
+watch(
+  date,
+  (val) => {
+    const d = parse(val, "yyyy/MM/dd", new Date());
+
+    report.value.date = d.getTime();
+  },
+  { immediate: true }
+);
+
+async function submit() {
+  loading.value = true;
+
+  try {
+    const imageUrl = await uploadFile(user.value.id, files.value[0]);
+
+    await createReport({ ...report.value, image: imageUrl });
+
+    somethingsGood("Report registered successfully!");
+  } catch (_) {
+    somethingsWrong("Something went wrong...");
+  }
+
+  report.value = initialReportData();
+  files.value = [];
+  date.value = currentDate();
+
+  if (imageUploaderRef.value) {
+    imageUploaderRef.value.reset();
+  }
+
+  if (formRef.value) {
+    formRef.value.reset();
+  }
+
+  loading.value = false;
+}
 </script>
