@@ -2,7 +2,7 @@
   <q-layout view="hHh Lpr lff">
     <q-header bordered>
       <q-toolbar>
-        <q-toolbar-title @click="router.push('/')">
+        <q-toolbar-title @click="router.push('/reports')">
           <div class="row items-center q-py-md">
             <span>
               <q-icon
@@ -25,7 +25,6 @@
       <q-page>
         <router-view v-slot="{ Component }">
           <transition
-            v-if="true"
             appear
             mode="out-in"
             enter-active-class="animated fadeIn"
@@ -34,18 +33,6 @@
           >
             <component :is="Component" />
           </transition>
-
-          <div v-else-if="!userSaved">
-            <h1>NU AI CONT CREEAZA PLS SAU LOGHEZA TE</h1>
-
-            <q-btn label="aici" no-caps to="/login" />
-          </div>
-
-          <div v-else>
-            <h1>ACUM TE LOGHEZI BIPBIP</h1>
-
-            <q-spinner size="xl" />
-          </div>
         </router-view>
       </q-page>
     </q-page-container>

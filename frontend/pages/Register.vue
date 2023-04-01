@@ -9,33 +9,39 @@
         <div class="row q-col-gutter-md">
           <div class="col-6">
             <q-input
-              v-model="firstName"
+              v-model="userRegister.firstName"
               outlined
               hide-bottom-space
               label="First Name"
+              :rules="[(val) => User.shape.firstName.safeParse(val).success]"
             />
           </div>
 
           <div class="col-6">
             <q-input
-              v-model="lastName"
+              v-model="userRegister.lastName"
               outlined
               hide-bottom-space
               label="Last Name"
+              :rules="[(val) => User.shape.lastName.safeParse(val).success]"
             />
           </div>
 
           <div class="col-12">
             <q-input
-              v-model="phoneNMbr"
+              v-model="phoneRaw"
               outlined
               hide-bottom-space
+              prefix="+40"
               label="Phone Number"
+              :rules="[
+                (val) => User.shape.phone.safeParse('+40' + val).success,
+              ]"
             />
           </div>
 
           <div class="col-12">
-            <email-input v-model="email" />
+            <email-input v-model="userRegister.email" />
           </div>
 
           <div class="col-12">
@@ -52,8 +58,9 @@
           <router-link
             class="text-bold text-body2 text-secondary col-12"
             to="/login"
-            >Already have an account?</router-link
           >
+            Already have an account?
+          </router-link>
         </div>
       </q-card-section>
 
@@ -73,55 +80,71 @@
 
 <script setup lang="ts">
 import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
-import type { User } from "types/users";
+import { User } from "types/users";
 
 import { firebaseAuth } from "@/lib/firebase";
 import { createUser } from "@/lib/functions";
 import EmailInput from "@@/email-input.vue";
 import PasswordInput from "@@/password-input.vue";
 
-const email = ref("");
 const password = ref("");
 const passwordConfirm = ref("");
-const firstName = ref("");
-const lastName = ref("");
-const phoneNMbr = ref("");
+
+const initialUserData = (): User => ({
+  id: "",
+  email: "",
+  type: "citizen",
+  firstName: "",
+  lastName: "",
+  phone: "",
+});
+
+const userRegister = ref(initialUserData());
+
+const phoneRaw = ref("");
+
+watch(
+  phoneRaw,
+  (val) => {
+    userRegister.value.phone = `+40${val}`;
+  },
+  { immediate: true }
+);
 
 const { setUser } = useAuthStore();
-const router = useRouter();
+
+const loading = ref(false);
 
 async function register() {
+  loading.value = true;
+
   try {
     const { user } = await createUserWithEmailAndPassword(
       firebaseAuth,
-      email.value,
+      userRegister.value.email,
       password.value
     );
 
     if (!user.email) {
       signOut(firebaseAuth);
+      setUser();
 
       throw `No email for user ${user.uid}`;
     }
+    const finalUserData: User = { ...userRegister.value, id: user.uid };
 
-    const userData: User = {
-      id: user.uid,
-      email: user.email,
-    };
+    await createUser(finalUserData);
 
-    await createUser(userData);
-
-    setUser(userData);
-
-    router.push("/");
+    setUser(finalUserData);
   } catch (_) {
-    email.value = "";
-    password.value = "";
-    passwordConfirm.value = "";
-
-    console.log(_);
-
     somethingsWrong("Cannot create account");
   }
+
+  userRegister.value = initialUserData();
+
+  password.value = "";
+  passwordConfirm.value = "";
+
+  loading.value = false;
 }
 </script>

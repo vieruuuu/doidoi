@@ -1,17 +1,15 @@
 import { visionClient } from "./firebase";
 
-export async function imageIsSafe(imagePath: string): Promise<boolean> {
+export async function isImageSpam(imagePath: string): Promise<boolean> {
   const [{ safeSearchAnnotation }] = await visionClient.safeSearchDetection(
-    `gs://doidoi-team.appspot.com/${imagePath}`
+    imagePath
   );
 
   if (!safeSearchAnnotation) {
-    return false;
+    return true;
   }
 
   const likelihoods = Object.values(safeSearchAnnotation);
 
-  return (
-    !likelihoods.includes("LIKELY") && !likelihoods.includes("VERY_LIKELY")
-  );
+  return likelihoods.includes("LIKELY") || likelihoods.includes("VERY_LIKELY");
 }

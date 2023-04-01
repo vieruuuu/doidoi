@@ -30,6 +30,7 @@
           color="primary"
           outline
           type="submit"
+          :loading="loading"
         />
       </q-card-actions>
     </q-card>
@@ -51,10 +52,11 @@ import PasswordInput from "@@/password-input.vue";
 const email = ref("");
 const password = ref("");
 
-const { setUser } = useAuthStore();
-const router = useRouter();
+const loading = ref(false);
 
 async function login() {
+  loading.value = true;
+
   try {
     await setPersistence(firebaseAuth, browserLocalPersistence);
 
@@ -67,19 +69,12 @@ async function login() {
     if (!user.email) {
       throw `No email for user ${user.uid}`;
     }
-
-    const userData: User = {
-      id: user.uid,
-      email: user.email,
-    };
-
-    setUser(userData);
-
-    router.push("/");
   } catch (_) {
     password.value = "";
 
     somethingsWrong("Invalid credentials");
   }
+
+  loading.value = false;
 }
 </script>
