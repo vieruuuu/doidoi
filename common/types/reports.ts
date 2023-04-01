@@ -7,6 +7,7 @@ export const Categories = [
   "lost-objects",
   "lost-pets",
   "thefts",
+  "vandalism",
 ] as const;
 
 export type Category = (typeof Categories)[number];

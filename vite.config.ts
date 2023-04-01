@@ -15,10 +15,10 @@ export default defineConfig(async () => {
   return {
     optimizeDeps: {
       include: [
-        "fuse.js",
         "firebase/functions",
-        "@firebase/app",
-        "@firebase/auth",
+        "firebase/firestore/lite",
+        "firebase/app",
+        "firebase/auth",
         "vue-chartjs",
         "firebase/storage",
         "zod",

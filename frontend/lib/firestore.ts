@@ -71,3 +71,15 @@ export async function fetchTopReports() {
     limit(5),
   ]);
 }
+
+export async function fetchUserReports(userId: string) {
+  return queryDocuments("reports", [where("user.id", "==", userId), limit(10)]);
+}
+
+export async function fetchUnsolvedReports() {
+  return queryDocuments("reports", [where("solved", "==", false), limit(6)]);
+}
+
+export async function fetchSolvedReports() {
+  return queryDocuments("reports", [where("solved", "==", true), limit(10)]);
+}
