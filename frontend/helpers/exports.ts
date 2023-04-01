@@ -73,6 +73,7 @@ export function somethingsWrong(message?: string) {
   Notify.create({
     message: message ?? "Something went wrong",
     icon: "error",
+    iconSize: "lg",
     iconColor: "negative",
     classes: "text-body1 text-weight-bold",
   });
@@ -82,6 +83,7 @@ export function somethingsGood(message?: string) {
   Notify.create({
     message: message ?? "No errors",
     icon: "done",
+    iconSize: "lg",
     iconColor: "primary",
     classes: "text-body1 text-weight-bold",
   });

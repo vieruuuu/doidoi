@@ -40,8 +40,10 @@
                     (val) => Report.shape.category.safeParse(val).success,
                   ]"
                   transition-hide="jump-up"
+                  map-options
+                  emit-value
                   outlined
-                  :options="Categories"
+                  :options="categoriesOptions"
                   label="Category"
                 />
               </div>
@@ -109,7 +111,7 @@
       <div class="q-mt-lg">
         <div class="text-h4 q-mb-xl">My reports:</div>
 
-        <user-reports></user-reports>
+        <user-reports class="q-mb-xl" />
       </div>
     </div>
   </div>
@@ -119,17 +121,47 @@
 import { uploadFile } from "@/lib/documents";
 import { createReport } from "@/lib/functions";
 import ImageUploader from "@@/image-uploader.vue";
-import { Categories, Report } from "types/reports";
+import { Report, type Category } from "types/reports";
 import { parse, format } from "date-fns";
 import RecentReports from "@@/recent-reports.vue";
 import userReports from "@@/user-reports.vue";
 
 const { user } = useAuthStore();
+const { fetchReports } = useReportsStore();
 
-const initialReportData = (): Report => ({
+const categoriesOptions = computed<{ label: string; value: Category }[]>(() => [
+  {
+    label: "Thefts",
+    value: "thefts",
+  },
+  {
+    label: "Litter",
+    value: "litter",
+  },
+  {
+    label: "Parking",
+    value: "parking",
+  },
+  {
+    label: "Lost Objects",
+    value: "lost-objects",
+  },
+  {
+    label: "Lost Pets",
+    value: "lost-pets",
+  },
+  {
+    label: "Vandalism",
+    value: "vandalism",
+  },
+]);
+
+const initialReportData = (): Omit<Report, "category"> & {
+  category: Report["category"] | undefined;
+} => ({
   id: "",
   anonymous: false,
-  category: "litter",
+  category: undefined,
   date: Date.now(),
   description: "",
   image: "",
@@ -173,7 +205,8 @@ async function submit() {
   try {
     const imageUrl = await uploadFile(user.value.id, files.value[0]);
 
-    await createReport({ ...report.value, image: imageUrl });
+    await createReport({ ...(report.value as Report), image: imageUrl });
+    await fetchReports(user.value.id);
 
     somethingsGood("Report registered successfully!");
   } catch (_) {

@@ -51,7 +51,7 @@ export function loginHook() {
     if (user && user.email) {
       const [userData] = await Promise.all([
         fetchDocument("users", user.uid),
-        fetchReports(),
+        fetchReports(user.uid),
       ]);
 
       setUser(userData);

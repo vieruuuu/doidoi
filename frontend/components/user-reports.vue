@@ -2,7 +2,7 @@
   <div>
     <div class="q-col-gutter-md row">
       <div
-        v-for="{ id, title, image, description, reacts } in recentReports"
+        v-for="{ id, title, image, description, reacts } in myReports"
         :key="id"
         class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
       >
@@ -38,5 +38,5 @@
 </template>
 
 <script setup lang="ts">
-const { recentReports } = useReportsStore();
+const { myReports } = useReportsStore();
 </script>
