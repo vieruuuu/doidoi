@@ -7,7 +7,7 @@
 
     <div class="col-xs-12 col-lg-6 col-xl-6">
       <q-card class="q-pa-sm">
-        <q-form>
+        <q-form @submit="() => testImageLabel()">
           <q-card-section>
             <div class="text-h4 q-mb-md text-center">Submit a rapport</div>
 
@@ -73,13 +73,13 @@
             </div>
           </q-card-section>
 
-          <q-card-actions class="q-mt-xl" align="between">
+          <q-card-actions class="q-mt-xl q-px-lg" align="between">
             <q-checkbox
               v-model="isAnon"
               label="Send anonymously "
               color="primary"
             />
-            <q-btn label="submit" color="secondary" />
+            <q-btn label="submit" size="lg" type="submit" color="secondary" />
           </q-card-actions>
         </q-form>
       </q-card>
@@ -133,6 +133,8 @@
 </template>
 
 <script setup lang="ts">
+import { testImageLabel } from "@/lib/functions";
+
 const rapport = reactive({
   user: "Gheorghe Asachi",
   title: "Om periculos",
