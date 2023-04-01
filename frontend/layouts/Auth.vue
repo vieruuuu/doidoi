@@ -23,7 +23,7 @@
     </div>
 
     <div class="q-pa-md col-xs-12 col-lg-3">
-      <loading-login v-if="true" />
+      <loading-login v-if="userSaved" />
 
       <router-view v-else />
     </div>

@@ -18,6 +18,7 @@
           </div>
         </q-toolbar-title>
         <q-space />
+        <q-btn label="Log out" outline no-caps size="lg" @click="logOut" />
       </q-toolbar>
     </q-header>
 
@@ -40,6 +41,15 @@
 </template>
 
 <script setup lang="ts">
+import { signOut } from "@firebase/auth";
+import { firebaseAuth } from "@/lib/firebase";
+
 const router = useRouter();
-const { userLogged, userSaved } = useAuthStore();
+const { setUser } = useAuthStore();
+
+async function logOut() {
+  await signOut(firebaseAuth);
+  setUser();
+  router.push("/");
+}
 </script>
