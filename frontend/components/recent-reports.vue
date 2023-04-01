@@ -25,18 +25,15 @@
           <div>
             <div class="text-h5 text-weight-medium">{{ title }}</div>
             <div class="text-body1">{{ description }}</div>
-            <q-img
-              class="fit"
-              style="max-width: 300px"
-              fit="scale-down"
-              :src="image"
-            />
+          </div>
+          <div class="row flex-center full-width">
+            <q-img fit="cover" :src="image" width="350px" :ratio="16 / 10" />
           </div>
 
-          <div class="q-mt-md full-width row q-col-gutter-md justify-end">
+          <div class="q-mb-md full-width row q-col-gutter-md justify-end">
             <div class="col-2">
               <q-btn
-                icon="sentiment_very_satisfied"
+                icon="arrow_circle_up"
                 rounded
                 padding="sm"
                 class="fit"
@@ -47,18 +44,7 @@
             </div>
             <div class="col-2">
               <q-btn
-                icon="sentiment_neutral"
-                unelevated
-                rounded
-                padding="sm"
-                class="fit"
-                color="orange"
-                :label="reacts.neutral"
-              />
-            </div>
-            <div class="col-2">
-              <q-btn
-                icon="sentiment_very_dissatisfied"
+                icon="arrow_circle_down"
                 unelevated
                 rounded
                 padding="sm"

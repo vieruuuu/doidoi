@@ -9,6 +9,8 @@ import {
   getDocs,
   QueryConstraint,
   orderBy,
+  where,
+  limit,
 } from "firebase/firestore/lite";
 
 export async function fetchDocument<
@@ -55,5 +57,17 @@ export async function queryDocuments<
 }
 
 export async function fetchRecentReports() {
-  return queryDocuments("reports", [orderBy("date", "desc")]);
+  return queryDocuments("reports", [
+    where("spam", "==", false),
+    orderBy("date", "desc"),
+    limit(5),
+  ]);
+}
+
+export async function fetchTopReports() {
+  return queryDocuments("reports", [
+    where("spam", "==", false),
+    orderBy("reacts.happy", "desc"),
+    limit(5),
+  ]);
 }
