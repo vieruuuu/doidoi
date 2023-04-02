@@ -4,7 +4,41 @@
       <div class="text-h4 q-mb-md text-bold">Hello, {{ user.firstName }}</div>
       <div class="text-h5 q-mb-md">Let's build a safer city!</div>
     </div>
-
+    <div class="col-xs-12 col-lg-10 col-xl-10">
+      <q-card flat bordered>
+        <q-card-section>
+          <div class="row q-col-gutter-md flex-center">
+            <div class="text-h4 col-xs-12 col-md-10 text-bold q-my-md">
+              Statistics:
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <q-card flat bordered>
+                <q-card-section>
+                  <div class="text-h4 text-center">Users</div>
+                  <div class="text-h5 text-bold text-center">23</div>
+                </q-card-section>
+              </q-card>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <q-card flat bordered>
+                <q-card-section>
+                  <div class="text-h4 text-center">Unsolved reports</div>
+                  <div class="text-h5 text-bold text-center">23/50</div>
+                </q-card-section>
+              </q-card>
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <q-card bordered>
+                <q-card-section>
+                  <div class="text-h4 text-center">Spam reports</div>
+                  <div class="text-h5 text-bold text-center">23/50</div>
+                </q-card-section>
+              </q-card>
+            </div>
+          </div>
+        </q-card-section>
+      </q-card>
+    </div>
     <div class="col-xs-12 col-lg-6 col-xl-6">
       <q-card bordered flat class="q-pa-sm">
         <q-card-section>
