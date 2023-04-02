@@ -4,50 +4,44 @@
       <div class="text-h4 q-mb-md text-bold">Hello, {{ user.firstName }}</div>
       <div class="text-h5 q-mb-md">Let's build a safer city!</div>
     </div>
+
     <div class="col-xs-12 col-lg-10 col-xl-10">
-      <q-card flat bordered>
-        <q-card-section>
-          <div class="row q-col-gutter-md flex-center">
-            <div class="text-h4 col-xs-12 col-md-10 text-bold q-my-md">
-              Statistics:
-            </div>
-            <div class="col-xs-12 col-md-3">
-              <q-card flat bordered>
-                <q-card-section>
-                  <div class="text-h4 text-center">Users</div>
-                  <div class="text-h5 text-bold text-center">
-                    {{ statistics.totalUsers }}
-                  </div>
-                </q-card-section>
-              </q-card>
-            </div>
-            <div class="col-xs-12 col-md-4">
-              <q-card flat bordered>
-                <q-card-section>
-                  <div class="text-h4 text-center">Unsolved reports</div>
-                  <div class="text-h5 text-bold text-center">
-                    {{ statistics.unsolvedReports }}
-                    /
-                    {{ statistics.totalReports }}
-                  </div>
-                </q-card-section>
-              </q-card>
-            </div>
-            <div class="col-xs-12 col-md-3">
-              <q-card flat bordered>
-                <q-card-section>
-                  <div class="text-h4 text-center">Spam reports</div>
-                  <div class="text-h5 text-bold text-center">
-                    {{ statistics.spamReports }}
-                    /
-                    {{ statistics.totalReports }}
-                  </div>
-                </q-card-section>
-              </q-card>
-            </div>
-          </div>
-        </q-card-section>
-      </q-card>
+      <div class="row q-col-gutter-md flex-center fit">
+        <div class="col-xs-12 col-md-4">
+          <q-card class="fit" flat bordered>
+            <q-card-section>
+              <div class="text-h4 text-center">Users</div>
+              <div class="text-h5 text-bold text-center">
+                {{ statistics.totalUsers }}
+              </div>
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <q-card class="fit" flat bordered>
+            <q-card-section>
+              <div class="text-h4 text-center">Unsolved reports</div>
+              <div class="text-h5 text-bold text-center">
+                {{ statistics.unsolvedReports }}
+                /
+                {{ statistics.totalReports }}
+              </div>
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <q-card class="fit" flat bordered>
+            <q-card-section>
+              <div class="text-h4 text-center">Spam reports</div>
+              <div class="text-h5 text-bold text-center">
+                {{ statistics.spamReports }}
+                /
+                {{ statistics.totalReports }}
+              </div>
+            </q-card-section>
+          </q-card>
+        </div>
+      </div>
     </div>
     <div class="col-xs-12 col-lg-6 col-xl-6">
       <q-card bordered flat class="q-pa-sm">
@@ -64,23 +58,31 @@
                 image,
               } in unsolvedReports"
               :key="id"
-              class="col-xs-12 col-sm-12 col-md-4 col-lg-6"
+              class="col-xs-12 col-sm-12 col-md-4 col-lg-6 extend-card"
             >
-              <q-card>
-                <q-card-section v-if="reportUser">
+              <q-card flat bordered>
+                <q-card-section>
                   <div class="row justify-between items-center q-col-gutter-md">
                     <div class="row flex-center q-col-gutter-md">
                       <div>
                         <q-avatar round size="55px">
                           <q-img
                             spinner-size="xs"
-                            :src="`https://i.pravatar.cc/300?ignore=${Date.now()}`"
+                            :src="
+                              reportUser
+                                ? `https://i.pravatar.cc/300?ignore=${Date.now()}`
+                                : `https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg`
+                            "
                           />
                         </q-avatar>
                       </div>
 
                       <div class="text-body1 text-center">
-                        {{ reportUser.firstName + " " + reportUser.lastName }}
+                        {{
+                          reportUser
+                            ? reportUser.firstName + " " + reportUser.lastName
+                            : "Anonymous"
+                        }}
                       </div>
                     </div>
 
@@ -88,10 +90,11 @@
                       class="col-xs-12 col-sm-shrink col-md-12 col-lg-shrink"
                     >
                       <q-btn
-                        :href="`tel:${reportUser.phone}`"
+                        :href="`tel:${reportUser ? reportUser.phone : ''}`"
                         icon="call"
                         color="red"
                         outline
+                        :disable="!reportUser"
                         class="fit"
                         size="md"
                         no-caps
@@ -190,7 +193,7 @@
               image,
             } in solvedReports"
             :key="id"
-            class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
+            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 extend-card"
           >
             <q-card>
               <img :src="image" />

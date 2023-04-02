@@ -4,7 +4,7 @@
       <div
         v-for="{ id, title, image, description, reacts } in myReports"
         :key="id"
-        class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
+        class="col-xs-12 col-sm-6 col-md-4 col-lg-3 extend-card"
       >
         <q-card>
           <q-img :src="image" :ratio="16 / 9" />
