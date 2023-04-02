@@ -15,7 +15,9 @@
               <q-card flat bordered>
                 <q-card-section>
                   <div class="text-h4 text-center">Users</div>
-                  <div class="text-h5 text-bold text-center">23</div>
+                  <div class="text-h5 text-bold text-center">
+                    {{ statistics.totalUsers }}
+                  </div>
                 </q-card-section>
               </q-card>
             </div>
@@ -23,15 +25,23 @@
               <q-card flat bordered>
                 <q-card-section>
                   <div class="text-h4 text-center">Unsolved reports</div>
-                  <div class="text-h5 text-bold text-center">23/50</div>
+                  <div class="text-h5 text-bold text-center">
+                    {{ statistics.unsolvedReports }}
+                    /
+                    {{ statistics.totalReports }}
+                  </div>
                 </q-card-section>
               </q-card>
             </div>
             <div class="col-xs-12 col-md-3">
-              <q-card bordered>
+              <q-card flat bordered>
                 <q-card-section>
                   <div class="text-h4 text-center">Spam reports</div>
-                  <div class="text-h5 text-bold text-center">23/50</div>
+                  <div class="text-h5 text-bold text-center">
+                    {{ statistics.spamReports }}
+                    /
+                    {{ statistics.totalReports }}
+                  </div>
                 </q-card-section>
               </q-card>
             </div>
@@ -207,7 +217,17 @@
 import MarkSolved from "@@/mark-solved.vue";
 import RecentReports from "@@/recent-reports.vue";
 import DeleteReport from "@@/delete-report.vue";
+import { getStatistics } from "@/lib/firestore";
 
 const { user } = useAuthStore();
 const { unsolvedReports, solvedReports } = useReportsStore();
+
+const statistics = ref({
+  totalUsers: 0,
+  unsolvedReports: 0,
+  spamReports: 0,
+  totalReports: 0,
+});
+
+getStatistics().then((val) => (statistics.value = val));
 </script>
