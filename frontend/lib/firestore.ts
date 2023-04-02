@@ -11,6 +11,7 @@ import {
   orderBy,
   where,
   limit,
+  getCount,
 } from "firebase/firestore/lite";
 
 export async function fetchDocument<
@@ -56,11 +57,24 @@ export async function queryDocuments<
   return docs;
 }
 
+export async function queryDocumentsCount<T extends keyof FirestoreCollection>(
+  collection: T,
+  queries: QueryConstraint[]
+): Promise<number> {
+  const collectionRef = firestoreCollection(firestore, collection);
+
+  const q = query(collectionRef, ...queries);
+
+  const snap = await getCount(q);
+
+  return snap.data().count;
+}
+
 export async function fetchRecentReports() {
   return queryDocuments("reports", [
     where("spam", "==", false),
     orderBy("date", "desc"),
-    limit(5),
+    limit(4),
   ]);
 }
 
@@ -68,7 +82,7 @@ export async function fetchTopReports() {
   return queryDocuments("reports", [
     where("spam", "==", false),
     orderBy("reacts.happy", "desc"),
-    limit(5),
+    limit(4),
   ]);
 }
 
@@ -77,9 +91,21 @@ export async function fetchUserReports(userId: string) {
 }
 
 export async function fetchUnsolvedReports() {
-  return queryDocuments("reports", [where("solved", "==", false), limit(6)]);
+  return queryDocuments("reports", [where("solved", "==", false), limit(7)]);
 }
 
 export async function fetchSolvedReports() {
   return queryDocuments("reports", [where("solved", "==", true), limit(10)]);
+}
+
+export async function getStatistics() {
+  const [totalUsers, unsolvedReports, spamReports, totalReports] =
+    await Promise.all([
+      queryDocumentsCount("users", []),
+      queryDocumentsCount("reports", [where("solved", "==", false)]),
+      queryDocumentsCount("reports", [where("spam", "==", true)]),
+      queryDocumentsCount("reports", []),
+    ]);
+
+  return { totalUsers, unsolvedReports, spamReports, totalReports };
 }

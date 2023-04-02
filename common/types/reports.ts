@@ -38,6 +38,8 @@ export const Report = z.object({
   spam: z.boolean(),
 
   solved: z.boolean(),
+
+  usersReacted: z.array(z.string()),
 });
 
 export type Report = z.infer<typeof Report>;

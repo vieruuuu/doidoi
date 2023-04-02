@@ -115,22 +115,10 @@
                   </div>
 
                   <div class="col-6">
-                    <q-btn
-                      outline
-                      color="red"
-                      label="Delete"
-                      class="fit"
-                      icon="delete"
-                    />
+                    <delete-report :report-id="id" />
                   </div>
                   <div class="col-6">
-                    <q-btn
-                      outline
-                      color="green-14"
-                      label="Mark solved"
-                      class="fit"
-                      icon="check"
-                    />
+                    <mark-solved :report-id="id" />
                   </div>
                 </q-card-actions>
               </q-card>
@@ -182,7 +170,9 @@
 </template>
 
 <script setup lang="ts">
+import MarkSolved from "@@/mark-solved.vue";
 import RecentReports from "@@/recent-reports.vue";
+import DeleteReport from "@@/delete-report.vue";
 
 const { user } = useAuthStore();
 const { unsolvedReports, solvedReports } = useReportsStore();

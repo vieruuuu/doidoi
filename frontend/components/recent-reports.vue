@@ -18,7 +18,14 @@
 
     <template v-else>
       <q-item
-        v-for="{ title, description, reacts, id, image } in viewedReports"
+        v-for="{
+          title,
+          description,
+          reacts,
+          id,
+          image,
+          usersReacted,
+        } in viewedReports"
         :key="id"
       >
         <div class="full-width row q-col-gutter-md">
@@ -32,25 +39,17 @@
 
           <div class="q-mb-md full-width row q-col-gutter-md justify-end">
             <div class="col-sm-2 col-lg-3 col-xs-6">
-              <q-btn
-                icon="arrow_circle_up"
-                rounded
-                padding="sm"
-                class="fit"
-                color="green"
+              <upvote-report
+                :report-id="id"
                 :label="reacts.happy"
-                unelevated
+                :disable="usersReacted.includes(user.id)"
               />
             </div>
             <div class="col-sm-2 col-lg-3 col-xs-6">
-              <q-btn
-                icon="arrow_circle_down"
-                unelevated
-                rounded
-                padding="sm"
-                class="fit"
-                color="negative"
+              <downvote-report
+                :report-id="id"
                 :label="reacts.sad"
+                :disable="usersReacted.includes(user.id)"
               />
             </div>
           </div>
@@ -60,7 +59,11 @@
 </template>
 
 <script setup lang="ts">
+import UpvoteReport from "./upvote-report.vue";
+import DownvoteReport from "./downvote-report.vue";
+
 const { recentReports, topReports } = useReportsStore();
+const { user } = useAuthStore();
 
 const viewTopReports = ref(false);
 
