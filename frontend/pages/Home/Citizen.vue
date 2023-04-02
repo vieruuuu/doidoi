@@ -174,6 +174,7 @@ const initialReportData = (): Omit<Report, "category"> & {
   solved: false,
   spam: false,
   title: "",
+  usersReacted: [],
 });
 
 const formRef = ref<{ reset: () => void }>();
