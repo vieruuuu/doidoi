@@ -72,6 +72,7 @@
           color="primary"
           outline
           type="submit"
+          :loading="loading"
         />
       </q-card-actions>
     </q-card>
